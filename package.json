@@ -1,0 +1,33 @@
+{
+  "name": "chat-application",
+  "version": "1.0.0",
+  "description": "Chat Application",
+  "homepage": "https://github.com/JawadTheGreat/chat-app#readme",
+  "bugs": {
+    "url": "https://github.com/JawadTheGreat/chat-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JawadTheGreat/chat-app.git"
+  },
+  "license": "ISC",
+  "author": "Abu Jawad",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "SET NODE_ENV=development && nodemon app.js",
+    "prod": "SET NODE_ENV=production && node app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.8",
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "express-validator": "^7.3.2",
+    "http-errors": "^2.0.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.11.2",
+    "multer": "^2.4.0"
+  }
+}
