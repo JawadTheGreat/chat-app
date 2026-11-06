@@ -2,6 +2,10 @@
 const { check, validationResult } = require("express-validator");
 const { unlink } = require("fs");
 const path = require("path");
+const createError = require("http-errors");
+
+//internal imports
+const User = require("../../models/People");
 
 //add user
 const addUserValidators = [
@@ -20,7 +24,7 @@ const addUserValidators = [
       try {
         const user = await User.findOne({ email: value });
         if (user) {
-          throw createError("Email already in use!");
+          throw createError("Email already in use !");
         }
       } catch {
         throw createError(err.message);
@@ -29,12 +33,12 @@ const addUserValidators = [
 
   check("mobile")
     .isMobilePhone("bn-BD", { strictMode: true })
-    .withMessage("Mobile number must be a valid Bangladeshi mobile number!")
+    .withMessage("Mobile number must be a valid Bangladeshi mobile number !")
     .custom(async (value) => {
       try {
         const user = await User.findOne({ mobile: value });
         if (user) {
-          throw createError("Mobile number already in use!");
+          throw createError("Mobile number already in use !");
         }
       } catch {
         throw createError(err.message);
@@ -44,7 +48,7 @@ const addUserValidators = [
   check("password")
     .isStrongPassword()
     .withMessage(
-      "Password must be at least 8 characters long & should contain at least 1 lowercase, 1 uppercase, 1 number & 1 symbol!",
+      "Password must be at least 8 characters long & should contain at least 1 lowercase, 1 uppercase, 1 number & 1 symbol !",
     ),
 ];
 
@@ -59,18 +63,17 @@ const addUserValidationHandler = function (req, res, next) {
     if (req.files.length > 0) {
       const { filename } = req.files[0];
       unlink(
-        path.join(__dirname, `/../public/uploads/avatars/${filename}`),
+        path.join(__dirname, `/../../public/uploads/avatars/${filename}`),
         (err) => {
           if (err) console.log(err);
         },
       );
     }
+    //response the errors
+    res.status(500).json({
+      errors: mappedErrors,
+    });
   }
-
-  //response the errors
-  res.status(500).json({
-    errors: mappedErrors,
-  });
 };
 
 module.exports = { addUserValidators, addUserValidationHandler };
