@@ -15,7 +15,7 @@ function avatarUpload(req, res, next) {
       res.status(500).json({
         errors: {
           avatar: {
-            msg: err.msg,
+            msg: err.message,
           },
         },
       });

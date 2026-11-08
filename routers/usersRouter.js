@@ -29,6 +29,6 @@ router.post(
 );
 
 //remove user
-router.delete(":id", removeUser);
+router.delete("/:id", removeUser);
 
 module.exports = router;
